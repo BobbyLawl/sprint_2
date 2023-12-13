@@ -1,3 +1,7 @@
+'''
+This is Part 1 of Sprint 10 Module 1 Project
+'''
+
 SELECT_ALL = "SELECT character_id, name FROM charactercreator_character;"
 
 TOTAL_CHARACTERS = "SELECT DISTINCT COUNT(*) FROM charactercreator_character;"
@@ -7,7 +11,6 @@ TOTAL_SUBCLASS = "SELECT COUNT(*) FROM charactercreator_necromancer"
 TOTAL_ITEMS = "SELECT DISTINCT COUNT(*) FROM armory_item;"
 
 WEAPONS = "SELECT DISTINCT COUNT(*) FROM armory_weapon;"
-
 
 NON__WEAPONS = '''
 SELECT COUNT (*)
@@ -37,14 +40,10 @@ GROUP BY cc_char.character_id
 '''
 
 AVG_CHARACTER_ITEMS = '''
-SELECT AVG(total_items) AS average_weapons
-FROM (SELECT cc_char.name, COUNT(ai.item_id) AS total_weapons
-FROM charactercreator_character_inventory AS cc_inv
-INNER JOIN armory_weapon AS aw
-ON cc_inv.item_id = aw.item_ptr_id
-INNER JOIN charactercreator_character_inventory as cci
-ON cc_inv.item_id = cci.item_id
-INNER JOIN charactercreator_character AS cc_char
+SELECT AVG(total_items) AS average_items_per_char
+FROM (SELECT name, COUNT(item_id) AS total_items
+FROM charactercreator_character AS cc_char
+INNER JOIN charactercreator_character_inventory as cc_inv
 ON cc_char.character_id = cc_inv.character_id
 GROUP BY cc_char.character_id)
 '''
@@ -61,3 +60,13 @@ INNER JOIN charactercreator_character AS cc_char
 ON cc_char.character_id = cc_inv.character_id
 GROUP BY cc_char.character_id)
 '''
+QUERY_LIST = [TOTAL_CHARACTERS,
+              TOTAL_SUBCLASS,
+              SELECT_ALL,
+              TOTAL_ITEMS,
+              WEAPONS,
+              NON__WEAPONS,
+              CHARACTER_ITEMS,
+              CHARACTER_WEAPONS,
+              AVG_CHARACTER_ITEMS,
+              AVG_CHARACTER_WEAPONS]
